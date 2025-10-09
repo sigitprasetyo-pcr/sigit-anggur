@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Git';
+    src: url('assets/fonts/Font.ttf');
+}
+
+.font-custom{
+    font-family: 'Git';
+}
