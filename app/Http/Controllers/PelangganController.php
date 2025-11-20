@@ -7,9 +7,16 @@ use Illuminate\Http\Request;
 class PelangganController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $data['dataPelanggan'] = Pelanggan::all();
+        $filterableColumns = ['gender'];
+
+        $searchableColumns = ['first_name', 'last_name', 'email'];
+
+        $data['dataPelanggan'] = Pelanggan::filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->paginate(10)
+            ->onEachSide(2);
         return view('admin.pelanggan.index', $data);
     }
 
@@ -42,7 +49,7 @@ class PelangganController extends Controller
 
     public function edit(string $id)
     {
-        $data['dataPelanggan'] = Pelanggan::findOrFail($id);
+        $data['dataPelanggan'] = Pelanggan::paginate(10);
         return view('admin.pelanggan.edit', $data);
     }
 
